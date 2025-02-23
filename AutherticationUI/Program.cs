@@ -1,11 +1,17 @@
 using AutherticationUI.Components;
+using AutherticationUI.Services;
+using Blazored.LocalStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<AutherticationService>();
+
 builder.Services.AddScoped(sp => new HttpClient
 {
-    BaseAddress = new Uri("https://localhost:5001") // API-ning URL manzili
+    BaseAddress = new Uri("https://localhost:5287") // API-ning URL manzili
 });
+
+builder.Services.AddBlazoredLocalStorage();
 
 
 // Add services to the container.

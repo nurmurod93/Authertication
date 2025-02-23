@@ -7,12 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddAuthorization();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseInMemoryDatabase("AuthDb");
+    options.UseNpgsql(connectionString);
 });
-
-builder.Services.AddAuthorization();
 
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
